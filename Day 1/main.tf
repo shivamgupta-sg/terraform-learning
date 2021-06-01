@@ -31,9 +31,9 @@ data "aws_ami" "aws-linux" {
 }
 
 resource "aws_instance" "shivam_instance" {
-  ami           = data.aws_ami.aws-linux.id
-  instance_type = var.instance_type
-   iam_instance_profile = "${aws_iam_instance_profile.shivam_instance_profile.name}"
+  ami                  = data.aws_ami.aws-linux.id
+  instance_type        = var.instance_type
+  iam_instance_profile = aws_iam_instance_profile.shivam_instance_profile.name
   tags = {
     Name    = "shivam_instance"
     purpose = "terraform"
@@ -87,20 +87,20 @@ resource "aws_iam_role_policy" "shivam_role_policy" {
         Resource = "*"
       },
       {
-            "Effect": "Allow",
-            "Action": "s3:*",
-            "Resource": [
-                "arn:aws:s3:::shivam-s3-bucket",
-                "arn:aws:s3:::shivam-s3-bucket/*"
-            ]
-        },
+        "Effect" : "Allow",
+        "Action" : "s3:*",
+        "Resource" : [
+          "arn:aws:s3:::shivam-s3-bucket",
+          "arn:aws:s3:::shivam-s3-bucket/*"
+        ]
+      },
     ]
   })
 }
 
 resource "aws_iam_instance_profile" "shivam_instance_profile" {
   name = "shivam_instance_profile"
-  role = "${aws_iam_role.shivam_iam_role.name}"
+  role = aws_iam_role.shivam_iam_role.name
 }
 
 output "instance_ip" {
