@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 variable "region" {
-  default = us-west-2
+  default = "us-west-2"
 }
 
 variable "instance_type" {
@@ -40,12 +40,12 @@ resource "aws_instance" "shivam_instance" {
   }
 }
 
-resource "aws_s3_bucket" "shivam_s3_bucket" {
-  bucket = "shivam_s3_bucket"
+resource "aws_s3_bucket" "shivam-s3-bucket" {
+  bucket = "shivam-s3-bucket"
   acl    = "private"
 
   tags = {
-    Name    = "shivam_s3_bucket"
+    Name    = "shivam-s3-bucket"
     purpose = "terraform"
   }
 }
@@ -90,8 +90,8 @@ resource "aws_iam_role_policy" "shivam_role_policy" {
             "Effect": "Allow",
             "Action": "s3:*",
             "Resource": [
-                "arn:aws:s3:::shivam_s3_bucket",
-                "arn:aws:s3:::shivam_s3_bucket/*"
+                "arn:aws:s3:::shivam-s3-bucket",
+                "arn:aws:s3:::shivam-s3-bucket/*"
             ]
         },
     ]
@@ -104,5 +104,5 @@ resource "aws_iam_instance_profile" "shivam_instance_profile" {
 }
 
 output "instance_ip" {
-  value = aws_instance.instance1.public_ip
+  value = aws_instance.shivam_instance.public_ip
 }
